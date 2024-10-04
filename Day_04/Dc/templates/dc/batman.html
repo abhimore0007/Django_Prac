@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+<title>Page Title</title>
+<link rel="stylesheet" href={% static "dc/css/style.css" %}>
+</head>
+<body>
+<h1>i am {{Superhero}}</h1>
+<h1>i am {{hero}}</h1>
+
+{% if Superhero == 'Superhero.bat' %}
+<h1>villan is amer</h1>
+{% elif hero == 'thor' %}
+<h1> villan is aashay</h1>
+{% else %}
+<h1>no villan</h1>
+{% endif %}
+
+{% for v in hero %}
+<h1>i am {{v}}</h1>
+{% endfor %}
+
+<h3>i am {{Superhero.spidy}}</h3>
+<h4>i am {{Superhero.bat}}</h4>
+
+
+</body>
+</html>

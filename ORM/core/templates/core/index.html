@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        td{
+            padding: 12px;
+          }
+        th{
+           padding: 12px;
+          }
+    </style>
+</head>
+<body>
+    <h1>ORM</h1>
+    <table border=2px > 
+        <tr>
+           <th>id</th>
+           <th>Name</th>
+           <th>city</th>
+           <th>Age</th>
+        </tr>
+        {% for m in marvel %}
+        <tr>
+           <td>{{m.id}}</td> 
+           <td>{{m.name}}</td>
+           <td>{{m.city}}</td>
+           <td>{{m.age}}</td> 
+        </tr>
+         {% endfor %}
+    </table>
+</body>
+</html>

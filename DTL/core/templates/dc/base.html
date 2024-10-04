@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+<title>{% block title %}Ecom|{% endblock title %}</title>
+<link rel="stylesheet" href={% static "dc/css/style.css" %}>
+<link rel="stylesheet" href={% static "dc/css/bootstrap.min.css" %}>
+</head>
+<body>
+{% include "dc/navbar.html" %}
+{% block content %}
+<h1>hello world</h1>
+{% endblock content %}
+
+{% include "dc/footer.html" %}
+
+</body>
+</html>
