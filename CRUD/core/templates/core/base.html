@@ -12,7 +12,7 @@
                <div class="form-control">
                 <form action="" method="POST">
                      {% csrf_token %}
-                     {{mf}}
+                     {{mf.as_p}}
                      <input type="submit">
                 </form>
                </div>
