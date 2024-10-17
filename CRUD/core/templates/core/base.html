@@ -12,7 +12,7 @@
                <div class="form-control">
                 <form action="" method="POST">
                      {% csrf_token %}
-                     {{mf.as_p}}
+                     {{mf}}
                      <input type="submit">
                 </form>
                </div>
@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-8">
             <div class="show-database">
-                <h1>ALL these Data Display</h1>
+                <h1 class="Datashow-title">ALL these Data Display</h1>
                 <table class="table">
                     <thead>
                         <tr>
@@ -36,6 +36,13 @@
                         <th scope="row">{{m.id}}</th>
                         <td>{{m.name}}</td>
                         <td>{{m.mail}}</td>
+                        <td>
+                            <a href="{% url "update" m.id %}"><button>Edit</button></a>
+                            <form action="{% url "delete" m.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="submit" value="Delete">
+                            </form>
+                        </td>
                         </tr>
                         {% endfor %}
                     </tbody>

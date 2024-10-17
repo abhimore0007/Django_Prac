@@ -15,5 +15,22 @@ def base(request):
         mm=Marvelform.objects.all()
         return render(request,'core/base.html',{'mf':mf,'Marvel':mm})
     
+def delete(request,id):
+    if request.method == 'POST':
+        mm=Marvelform.objects.get(pk=id)
+        mm.delete()
+        return redirect('base')
+    
+def update(request,id):
+    if request.method == 'POST':
+        mm=Marvelform.objects.get(pk=id)
+        mf=Marvel(request.POST,instance=mm)
+        if mf.is_valid():
+             mf.save()
+    else:
+        mm=Marvelform.objects.get(pk=id)
+        mf=Marvel(instance=mm)
+    return render(request,'core/update.html',{'mf':mf})
+
 
 
