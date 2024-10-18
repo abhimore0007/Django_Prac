@@ -1,11 +1,23 @@
+*{
+    font-family: 'Times New Roman', serif;
+}
+
+.right-box{
+    padding-top: 50px;
+    background: #004445;
+    height: 900px;
+}
+.left-box{
+    background: #004445;
+
+}
 .title-heading{
-    background-color: blanchedalmond;
-    color: rgb(0, 0, 0);
-    border-radius: 10px;
+    background: #2c786c; 
+    color: #f8b400; 
     font-size: 50px;
     text-align: center;
     font-weight: bold;
-    border: 2px dotted rgb(0, 0, 0);
+    border: 5px double #faf5e4;
     height: 100px;
     padding-top: 10px;
 }
@@ -13,41 +25,111 @@
 .col-title{
     font-size: 30px;
     text-align: center;
+    color: #f8b400; 
+    background: #2c786c; 
+    font-weight: bold;
+    border-radius: 10px;
+    margin-left: 30px;
+    padding: 20px;
 }
 
 .form-control{
     margin-top: 70px;
-    margin-left: 20px;
+    margin-left: 10px;
     padding: 20px;
     font-size: 10px;
     border-radius: 30px;
-    background-color: blue;
+    background: #2c786c; 
 }
 
 label{
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bold;
     padding-right: 320px;
+    color: #f8b400; 
 }
 
 #id_name{
-    width: 400px;
+    width: 450px;
+    margin-top: 10px;
+    background-color: aliceblue;
+    font-size: 17px;
 }
 #id_mail{
-    width: 400px;
+    width: 450px;
+    margin-top: 10px;
+    background-color: aliceblue;
+    font-size: 17px;
 }
 
 .Datashow-title{
-    background-color: aqua;
+    background: #2c786c; 
     text-align: center;
     font-size: 40px;
     border-radius: 20px;
     margin-top: 30px;
     width: 600px;
-    margin-left: 240px;
     margin-bottom: 50px;
+    padding: 20px;
+    color: #f8b400;
+    margin-left: 180px;
 }
 
 .show-database{
-    padding: 40px;
+    padding-left: 90px;
+    padding-right: 90px;
+    padding-top: 20px;
 }
+
+.table{
+    background: #faf5e4;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 30px;
+
+}
+
+.submit-btn{
+    margin-left: 12rem;
+    margin-top: 30px;
+    padding: 13px;
+    font-size: 20px;
+    border-radius: 24px;
+    font-weight: bold;
+}
+
+.submit-btn:hover{
+    background-color: #ffc400;
+    color: #000000;
+}
+
+.update-title{
+    margin-top: 30px;
+    font-size: 3rem;
+    text-align: center;
+    font-weight: bold;
+    background-color: #2c786c;
+    width: 30rem;
+    margin-left: 35rem;
+    color: #000000;
+    border-radius: 30px;
+}
+
+.update-form{
+    margin-left: 36rem;
+    margin-top: 40px;
+}
+
+.update-row{
+    background-color: #004445;
+    height: 900px;
+}
+
+.button-group {
+    display: flex;
+    gap: 20px; /* Adjust spacing between buttons */
+    margin-top: 50px; /* Add margin for visual spacing */
+    margin-left: 150px;
+}
+

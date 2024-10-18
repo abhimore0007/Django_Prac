@@ -2,15 +2,26 @@
 
 {% block content %}
 <div class="title-heading">
-    CRUD Oprations
+    CRUD Operations
 </div>
-<div class="update-form">
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{mf.as_p}}
-        <input type="submit" value="Update">
-    </form>
-    <a href="{% url "base" %}"><button>Avenger Database</button></a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 update-row">
+            <div class="update-title">
+                Update Data
+            </div>
+            <div class="update-form">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ mf.as_p }}
+                    <div class="button-group">
+                        <input type="submit" value="Update"  class="btn btn-warning" Id="Update-btn">
+                        <a href="{% url 'base' %}"><button type="button" class="btn btn-primary">Return</button></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock content %}

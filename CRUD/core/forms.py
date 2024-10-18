@@ -8,8 +8,8 @@ class Marvel(forms.ModelForm):
         model = Marvelform
         fields='__all__'
         widgets={
-            'name':forms.TextInput(attrs={'class':'form-control'}),
-            'mail':forms.TextInput(attrs={'class':'form-control'})
+            'name':forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter your Name'}),
+            'mail':forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter your Email'})
         }
 
         
