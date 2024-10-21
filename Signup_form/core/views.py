@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -8,7 +9,8 @@ def index(request):
         mf=UserCreationForm(request.POST)
         if mf.is_valid():
             mf.save()
+            messages.success(request,'Welcome to the Avenger')
             return redirect('index')
     else:
         mf=UserCreationForm()
-        return render(request,'core/index.html',{'mf':mf})
+    return render(request,'core/index.html',{'mf':mf})

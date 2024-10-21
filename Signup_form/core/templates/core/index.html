@@ -10,15 +10,18 @@
 </head>
 <body>
     <h1>hell</h1>
-
-    <div class="form-control">
-        <form action="" method="POST">
+        <form action="" method="POST" novalidate>
             {% csrf_token %}
             {% for m in mf %}
-               {{m.label_tag}} {{m}} <br><br>
+               {{m.label_tag}} {{m}} {{m.errors|striptags}} <br><br>
             {% endfor %}
-            <input type="submit" value="Click">
+            <input type="submit">
         </form>
-    </div>
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+                {{message}}
+            {% endfor %}
+        {% endif %}
 </body>
 </html>
