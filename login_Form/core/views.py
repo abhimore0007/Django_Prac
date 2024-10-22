@@ -53,4 +53,4 @@ def User_Profile(request):
     
 def User_logout(request):
     logout(request)
-    return render('Login')
+    return redirect('Login')
