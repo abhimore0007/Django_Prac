@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from .forms import SignupForm
-from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm,SetPasswordForm
+from .forms import SignupForm,UserEditForm,AdminEditForm
+from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm,SetPasswordForm,UserChangeForm
 from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -47,7 +48,22 @@ def User_login(request):
 
 def User_Profile(request):
     if request.user.is_authenticated:
-        return render(request,'core/Profile.html')
+        if request.method == 'POST':
+            if request.user.is_superuser == True:
+                mf=AdminEditForm(request.POST,instance=request.user)
+            else:
+                mf = UserEditForm(request.POST,instance=request.user)
+            if mf.is_valid():
+                    mf.save()
+                    messages.success(request,'Data edit Successfully')
+        else:
+            if request.user.is_superuser == True:
+                mf=AdminEditForm(request.POST,instance=request.user)
+                user=User.objects.all()
+            else:
+                user=None
+                mf=UserEditForm(instance=request.user)
+        return render(request,'core/Profile.html',{'mf':mf,'user':user})
     else:
         return redirect('login')
     
