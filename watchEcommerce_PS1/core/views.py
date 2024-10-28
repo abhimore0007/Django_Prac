@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def base(request):
     return render(request,'core/index.html')
+
+def login(request):
+    return render(request,'core/login_form.html')

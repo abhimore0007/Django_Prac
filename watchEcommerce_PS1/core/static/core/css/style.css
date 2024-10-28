@@ -1,0 +1,83 @@
+
+/* Navbar css */
+header {
+    background-color: black;
+  }
+  .navbarsec {
+    background-color: black;
+  }
+  .nav-link:hover {
+    text-decoration: underline;
+    color: #ffe100;
+  }
+/* Navbar css end */
+
+/* hero css start */
+.custom-bg {
+  background-color: black;
+  color: white;
+  height: auto; /* Change height to auto for better responsiveness */
+  padding: 50px 0; /* Add padding for spacing */
+}
+
+.herotext h2 {
+  font-size: 3rem;
+}
+
+.herotext p {
+  font-size: 1.125rem;
+}
+
+#hero-title {
+  color: rgb(198, 138, 89);
+}
+
+.btn-change7 {
+  height: 50px;
+  /* width: 100px; */
+  background: rgb(255, 255, 255);
+  font-weight: 300;
+  margin: 20px;
+  border: 0;
+  color: rgb(255, 94, 0);
+  box-shadow: 0 0 1px #ccc;
+  transition: box-shadow 0.5s linear;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.btn-change7:hover {
+  box-shadow: 100px 0 0 #fffb00 inset;
+  color: black;
+}
+/* hero css end */
+
+/* Services css start */
+.services-section {
+  background-color: black; /* Set background color to black */
+  color: white; /* Change text color to white for better contrast */
+  padding: 20px 0;
+}
+
+.service-card {
+  text-align: center;
+  border: 1px solid #444; /* Darker border for better visibility */
+  border-radius: 10px;
+  padding: 20px;
+  margin: 15px;
+  transition: transform 0.3s;
+}
+
+.service-icon {
+  font-size: 40px; /* Icon size */
+  color: rgb(198, 138, 89); /* Green color for icons */
+  margin-bottom: 15px;
+}
+
+.service_title {
+  margin-bottom: 30px;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+/* Services css end */
