@@ -6,9 +6,10 @@ header {
   .navbarsec {
     background-color: black;
   }
-  .nav-link:hover {
+  a:hover {
     text-decoration: underline;
     color: #ffe100;
+   
   }
 /* Navbar css end */
 
