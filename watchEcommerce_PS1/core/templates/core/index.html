@@ -2,48 +2,7 @@
 {% load static %}
 {% block title %}{{block.super}} Home{% endblock title %}
 {% block content %}
+{% include "core/hero.html" %}
+{% include "core/video.html" %}
 
-{% comment %} Hero Section Start {% endcomment %}
-<div class="container-fluid custom-bg py-5">
-    <div class="row align-items-center">
-      <div class="col-md-6 herotext">
-        <h2>A Watch for Every Journey,<br><span id="hero-title">Every Occasion</span></h2>
-        <p class="py-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet accumsan arcu. Praesent euismod, nisi vel consectetur interdum, nisl nisi suscipit libero, eget cursus ligula nunc in elit.</p>
-        <button class="btn-change7">Shop Now</button>
-      </div>
-      <div class="col-md-6 heroimg">
-        <img src="{% static "core/imgs/hero_section_img.jpg" %}" alt="Description" class="img-fluid " />
-      </div>
-    </div>
-  </div>
-{% comment %} Hero Section End {% endcomment %}
-
-{% comment %} Services section start {% endcomment %}
-<div class="container-fluid  services-section">
-    <h2 class="text-center service_title">Our Services</h2>
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <div class="service-card">
-                <i class="bi bi-clock-fill service-icon"></i>
-                <h3>Watch Repair</h3>
-                <p>Professional repair services to keep your watch in perfect condition.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="service-card">
-                <i class="bi bi-gear-fill service-icon"></i>
-                <h3>Custom Design</h3>
-                <p>Create your own unique timepiece tailored to your style.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="service-card">
-                <i class="bi bi-heart-fill service-icon"></i>
-                <h3>Customer Support</h3>
-                <p>Dedicated support to assist you with any inquiries or issues.</p>
-            </div>
-        </div>
-    </div>
-</div>
-{% comment %} Services section end {% endcomment %}
 {% endblock content %}
