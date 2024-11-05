@@ -65,11 +65,11 @@ padding-right: 10px;
               </button>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                  {% if request.user.is_authenticated%}
-                 <li><a class="dropdown-item" href="#">Profile</a></li>
-                 <li><a class="dropdown-item" href="#">Logout</a></li>
+                 <li><a class="dropdown-item" href="{% url "Profile" %}">Profile</a></li>
+                 <li><a class="dropdown-item" href="{% url "logout" %}">Logout</a></li>
                   {% else %}
-                 <li><a class="dropdown-item" href="#">login</a></li>
-                 <li><a class="dropdown-item" href="#">Register</a></li>
+                  <li><a class="dropdown-item" href="{% url "register" %}">Register</a></li>
+                 <li><a class="dropdown-item" href="{% url "login" %}">login</a></li>
                  {% endif %}
               </ul>
           </div>
