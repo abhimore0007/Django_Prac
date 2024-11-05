@@ -19,3 +19,16 @@ class RegisterForm(UserCreationForm):
 class loginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     password = forms.CharField(label='Password',widget=forms.PasswordInput(attrs={'class':'form-control'}))
+
+
+class UserEditForm(UserChangeForm):
+    password=None
+    class Meta:
+        model = User
+        fields = ['username','first_name','last_name','email','last_login','date_joined']
+
+
+class AdminEditForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = '__all__'
