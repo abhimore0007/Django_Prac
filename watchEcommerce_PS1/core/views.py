@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import RegisterForm,loginForm,UserEditForm,AdminEditForm
+from .forms import RegisterForm,loginForm,UserEditForm,AdminEditForm,PasswordChangeForm
 from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -20,14 +20,14 @@ def register(request):
     return render(request,'core/register_form.html',{'reg':reg})
 
 def user_login(request):
-    if request.user.is_authenticated:
+    if not request.user.is_authenticated:
         if request.method == 'POST':
             log=loginForm(request,request.POST)
             if log.is_valid():
                 Name=log.cleaned_data['username']
                 Password=log.cleaned_data['password']
                 user=authenticate(username=Name,password=Password)
-                messages.success(request,'Login SuccessFully !!')
+                messages.success(request,'Login SuccessFully !!') 
                 if user is not None:
                     login(request, user)
                     return redirect('/')
@@ -61,3 +61,21 @@ def User_Profile(request):
         return render(request,'core/profile.html',{'UC':UC})
     else:
         return redirect('login')
+    
+
+def User_Change_Password(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            CP=PasswordChangeForm(user=request.user,data=request.POST)
+            if CP.is_valid():
+                CP.save()
+                update_session_auth_hash(request,CP.user)
+                messages.success(request,'Password Change SuccessFully')
+                return redirect('changePassword')
+        else:
+            CP=PasswordChangeForm(user=request.user)
+            return render(request,'core/ChangePasswordForm.html',{'CP':CP})
+    else:
+        return redirect('login')
+    
+

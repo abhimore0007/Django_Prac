@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Section</title>
-    <link rel="stylesheet" href="{% static "core/css/style.css" %}">
-    <link rel="stylesheet" href="{% static "core/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,15 +22,33 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
         .profile-header {
-            text-align: center;
             margin-bottom: 20px;
         }
         .profile-header h1 {
             margin: 0;
             font-size: 2em;
             color: #333;
+        }
+        .profile-img-container {
+            margin-bottom: 20px;
+        }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ddd;
+        }
+        .profile-info {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .profile-info p {
+            margin: 5px 0;
         }
         form {
             display: flex;
@@ -73,7 +91,7 @@
         .cancel-button:hover {
             background-color: #e53935;
         }
-        #change_btn{
+        #change_btn {
             text-decoration: none;
             color: white;
         }
@@ -83,20 +101,33 @@
     <div class="profile-section">
         <!-- Profile Header -->
         <div class="profile-header">
-            <h1>Welcome {{request.user.first_name}}</h1>
+            <h1>Welcome {{ request.user.first_name }}</h1>
+        </div>
+
+        <!-- Profile Image -->
+        <div class="profile-img-container">  
+                <img src="{% static 'core/imgs/persone_icon.jpg' %}" alt="Default Profile Image" class="profile-img">
+        </div>
+
+        <!-- Profile Information -->
+        <div class="profile-info">
+            <p><strong>Name:</strong> {{ request.user.first_name }} {{ request.user.last_name }}</p>
+            <p><strong>Email:</strong> {{ request.user.email }}</p>
         </div>
 
         <!-- Profile Form -->
         <form action="#" method="POST">
             {% csrf_token %}
-            {% for U in UC  %} 
-              {{U.label_tag}} {{U}} {{U.errors|striptags}}
+            {% for U in UC %}
+              {{ U.label_tag }} {{ U }} {{ U.errors|striptags }}
             {% endfor %}
 
             <!-- Buttons Group -->
             <div class="button-group">
                 <button type="submit" class="save-button">Save</button>
-                <button type="button" class="btn btn-warning" ><a href="" id="change_btn">Change Password</a></button>
+                <button type="submit" class="btn btn-warning" href="">
+                    <a href="{% url "changePassword" %}" id="change_btn">Change Password</a>
+                </button>
             </div>
         </form>
     </div>
