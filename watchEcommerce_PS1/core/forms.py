@@ -25,11 +25,7 @@ class UserEditForm(UserChangeForm):
     password=None
     class Meta:
         model = User
-        fields = ['username','first_name','last_name','email','last_login','date_joined']
-        widgets= {
-            'last_login':forms.DateInput(attrs={'disabled':'disabled'}),
-            'date_joined':forms.DateInput(attrs={'disabled':'disabled'})
-            }
+        fields = ['username','first_name','last_name','email']
 
 class AdminEditForm(UserChangeForm):
     class Meta:

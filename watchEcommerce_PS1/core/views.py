@@ -27,7 +27,6 @@ def user_login(request):
                 Name=log.cleaned_data['username']
                 Password=log.cleaned_data['password']
                 user=authenticate(username=Name,password=Password)
-                messages.success(request,'Login SuccessFully !!') 
                 if user is not None:
                     login(request, user)
                     return redirect('/')
