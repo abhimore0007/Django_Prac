@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Register{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <style>
+        /* Global Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000000;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        /* Registration Form Styles */
+        .h4 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+        }
+
+        .form-control:focus {
+            border-color: #0069d9;
+            box-shadow: 0 0 5px rgba(0, 105, 217, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background-color: #0069d9;
+            border-color: #0069d9;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        /* Redirection Button Styling */
+        .btn-home {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: rgb(255, 179, 2);
+            border-color: rgb(255, 179, 2);
+            color: white;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+
+        /* Responsive Layout */
+        .row.g-0 {
+            margin: 0;
+            height: 100%;
+        }
+
+        .col-md-6 {
+            padding: 0;
+        }
+
+        .img-fluid {
+            object-fit: cover;
+            height: 100%;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .registration-section {
+            background-color: #fff;
+            width: 100%;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Account Link */
+        .account-link {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .link-primary {
+            color: #0069d9;
+        }
+
+        .link-primary:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* Error Message Styling */
+        .error-message {
+            color: red;
+            font-size: 0.875rem;
+        }
+
+        /* Ensure the image doesn't take up too much space on small screens */
+        @media (max-width: 768px) {
+            .col-md-6 img {
+                height: 300px; /* Control image height on smaller screens */
+            }
+
+            .registration-section {
+                padding: 1.5rem;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+
+            .btn-primary {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Registration Section -->
+    <section class="registration-section bg-dark">
+        <div class="container">
+            <!-- Button to redirect to the homepage -->
+            <a href="{% url "base" %}" class="btn-home">Home</a>
+
+            <div class="row justify-content-center">
+                <div class="col-12 col-xxl-10">
+                    <div class="card">
+                        <div class="row g-0">
+                            <!-- Left side Image -->
+                            <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                                <img class="img-fluid" loading="lazy" src="{% static 'core/imgs/registerimg.jpg' %}" alt="Welcome back, you've been missed!">
+                            </div>
+                            <!-- Right side Form -->
+                            <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                                <div class="col-12 col-lg-10 col-xl-8">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="mb-4 text-center">
+                                                    <h2 class="h4">Register</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <form method="POST" action="{% url 'register' %}">
+                                          {% csrf_token %}
+                                          {% if messages %}
+                                              <div class="alert alert-success">
+                                                  {% for message in messages %}
+                                                      <p>{{ message }}</p>
+                                                  {% endfor %}
+                                              </div>
+                                          {% endif %}
+
+                                          {% for field in reg %}
+                                              <div class="form-group">
+                                                  {{ field.label_tag }}
+                                                  {{ field }}
+                                                  <div class="error-message">
+                                                      {% if field.errors %}
+                                                          {% for error in field.errors %}
+                                                              <p>{{ error }}</p>
+                                                          {% endfor %}
+                                                      {% endif %}
+                                                  </div>
+                                              </div>
+                                          {% endfor %}
+                                          
+                                          <button type="submit" class="btn btn-primary">Sign Up</button>
+                                        </form>
+
+                                        <div class="row mt-4">
+                                            <div class="col-12 text-center">
+                                                <p class="mb-0 text-secondary">Already have an account? <a href="{% url 'login' %}" class="link-primary text-decoration-none">Sign in</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="{% static 'core/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

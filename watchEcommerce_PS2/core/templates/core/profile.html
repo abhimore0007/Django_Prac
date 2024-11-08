@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Section</title>
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+        }
+
+        .profile-section {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative; /* Ensure the absolute button aligns correctly */
+        }
+
+        .profile-header {
+            margin-bottom: 20px;
+        }
+
+        .profile-header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #333;
+        }
+
+        .profile-img-container {
+            margin-bottom: 20px;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ddd;
+        }
+
+        .profile-info {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .profile-info p {
+            margin: 5px 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .button-group button {
+            padding: 12px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 48%;
+        }
+
+        .save-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .save-button:hover {
+            background-color: #45a049;
+        }
+
+        .cancel-button {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .cancel-button:hover {
+            background-color: #e53935;
+        }
+
+        #change_btn {
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Button in the top-right corner */
+        .top-right-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .top-right-button:hover {
+            background-color: #1976D2;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-section {
+                padding: 20px;
+                max-width: 90%;
+            }
+
+            .button-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .button-group button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="top-right-button" onclick="window.location.href='{% url "base" %}'">HOME</button>
+    <div class="profile-section">
+        <!-- Button in top-right corner -->
+
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <h1>Welcome {{ request.user.first_name }}</h1>
+        </div>
+
+        <!-- Profile Image -->
+        <div class="profile-img-container">
+            <img src="{% static 'core/imgs/persone_icon.jpg' %}" alt="Default Profile Image" class="profile-img">
+        </div>
+
+        <!-- Profile Information -->
+        <div class="profile-info">
+            <p><strong>Name:</strong> {{ request.user.first_name }} {{ request.user.last_name }}</p>
+            <p><strong>Email:</strong> {{ request.user.email }}</p>
+        </div>
+
+        <!-- Profile Form -->
+        <form action="#" method="POST">
+            {% csrf_token %}
+            {% for U in UC %}
+                <div class="form-group">
+                    <label for="{{ U.id_for_label }}">{{ U.label }}</label>
+                    {{ U }}
+                    <div class="text-danger">{{ U.errors|striptags }}</div>
+                </div>
+            {% endfor %}
+
+            <!-- Buttons Group -->
+            <div class="button-group">
+                <button type="submit" class="save-button">Save</button>
+                <button type="submit" class="btn btn-warning" href="">
+                    <a href="{% url "changePassword" %}" id="change_btn">Change Password</a>
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

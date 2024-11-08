@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TZ| {% endblock title %}</title>
+    <link rel="stylesheet" href="{% static "core/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "core/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #121212;
+          color: #fff;
+          height: 100vh; /* Full viewport height */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden; /* Prevent scrolling */
+        }
+    
+        .container-fluid {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          padding: 0 20px;
+          height: 100%; /* Make sure it takes full height */
+        }
+    
+        .product-card {
+          display: flex;
+          flex-direction: row;
+          border-radius: 15px;
+          box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+          overflow: hidden;
+          width: 100%;
+          max-width: 1200px;
+          height: 80vh; /* Adjust the height to be a percentage of the viewport */
+          margin: 10px;
+          background-color: #1c1c1c;
+          transition: transform 0.3s ease;
+        }
+    
+        .product-image {
+          width: 45%;
+          height: 100%;
+          border-right: 2px solid #444;
+          overflow: hidden;
+        }
+    
+        .product-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 15px 0 0 15px;
+        }
+    
+        .product-info {
+          padding: 20px;
+          width: 55%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+    
+        .product-name {
+          font-size: 2rem;
+          font-weight: bold;
+          margin-bottom: 15px;
+          color: #f39c12;
+          text-transform: uppercase;
+        }
+    
+        .product-description {
+          font-size: 1.2rem;
+          color: #ddd;
+          margin-bottom: 20px;
+        }
+    
+        .product-details {
+          font-size: 1rem;
+          color: #bbb;
+          margin-bottom: 25px;
+        }
+    
+        .product-price {
+          font-size: 1.6rem;
+          color: #f39c12;
+          font-weight: bold;
+          margin-bottom: 20px;
+        }
+    
+        .button-container {
+          display: flex;
+          justify-content: space-between;
+          gap: 20px;
+          width: 100%;
+        }
+    
+        .button {
+          padding: 12px 24px;
+          background-color: #f39c12;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 1.1rem;
+          transition: background-color 0.3s ease, transform 0.2s ease;
+          flex: 1;
+        }
+    
+        .button:hover {
+          background-color: #e67e22;
+          transform: translateY(-3px);
+        }
+    
+        .button:focus {
+          outline: none;
+        }
+    
+        @media screen and (max-width: 768px) {
+          .product-card {
+            flex-direction: column;
+            height: auto;
+            width: 90%;
+          }
+    
+          .product-image {
+            width: 100%;
+            border-right: none;
+            border-bottom: 2px solid #444;
+          }
+    
+          .product-info {
+            width: 100%;
+            padding: 20px;
+          }
+    
+          .product-price {
+            font-size: 1.4rem;
+          }
+    
+          .button {
+            padding: 10px 20px;
+          }
+        }
+    
+      </style>
+</head>
+<body>
+     
+  <div class="container-fluid">
+    <div class="product-card">
+      <!-- Left Side Image -->
+      <div class="product-image">
+        <img src="Assets/images/43-Greubel_Forsey_Brands.jpg" alt="Product Image">
+      </div>
+
+      <!-- Right Side Product Information -->
+      <div class="product-info">
+        <div>
+          <div class="product-name">Product Name</div>
+          <div class="product-description">Short description of the product goes here.</div>
+          <div class="product-details">
+            This is a more detailed description of the product, explaining all its features and benefits. It's an amazing product that helps you solve many problems.
+          </div>
+        </div>
+
+        <!-- Price and Buttons -->
+        <div>
+          <div class="product-price">$199.99</div>
+          <div class="button-container">
+            <button class="button">Add to Cart</button>
+            <button class="button">Buy Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+<script src="{% static "core/js/bootstrap.bundle.js" %}"></script>
+<script src="{% static "core/js/popper.js" %}"></script>
+</body>
+</html>

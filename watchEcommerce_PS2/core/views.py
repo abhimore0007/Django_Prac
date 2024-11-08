@@ -4,10 +4,11 @@ from django.contrib.auth import authenticate,login,logout,update_session_auth_ha
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import SetPasswordForm
+from .models import Watch
 # Create your views here.
 
 def base(request):
-    return render(request,'core/index.html')
+    return render(request,'core/index.html')  
 
 def register(request):
     if request.method == 'POST':
@@ -93,5 +94,16 @@ def User_Password_forgot_Form(request):
         return render(request,'core/Forgot_Password_Form.html',{'Forgot_Pass':Forgot_Pass})
     else:
         return redirect('Login')
+    
+
+def User_categories(request):
+    watch_cate=Watch.objects.all()
+    return render(request,'core/categories.html',{'watch_cate':watch_cate})
+
+def watch_details(request):
+    return render(request,'core/watch_details.html')
+
+
+
     
 
