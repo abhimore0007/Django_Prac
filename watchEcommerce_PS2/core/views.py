@@ -1,10 +1,10 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .forms import RegisterForm,loginForm,UserEditForm,AdminEditForm,PasswordChangeForm
 from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import SetPasswordForm
-from .models import Watch
+from .models import Watch,Cart
 # Create your views here.
 
 def base(request):
@@ -100,8 +100,63 @@ def User_categories(request):
     watch_cate=Watch.objects.all()
     return render(request,'core/categories.html',{'watch_cate':watch_cate})
 
-def watch_details(request):
-    return render(request,'core/watch_details.html')
+def watch_details(request,id):
+    watch_details=Watch.objects.get(pk=id)
+    return render(request,'core/watch_details.html',{'watch_details':watch_details})
+
+def Add_To_Cart(request,id):
+    if request.user.is_authenticated:
+        watch_cart=Watch.objects.get(pk=id)
+        user=request.user
+        Cart(user=user,product=watch_cart).save()
+        return redirect('watchdetails', id)
+    else:
+        return redirect('login')
+    
+
+def view_To_Cart(request):
+    if request.user.is_authenticated:
+        watch_view=Cart.objects.filter(user=request.user)
+        total=0
+        delivery_charges=3000
+        for viewcart in watch_view:
+            total+=(viewcart.product.discounted_price*viewcart.quantity)
+        final_price =total+delivery_charges
+        return render(request,'core/watch_cart.html',{'watch_view':watch_view,'total':total,'final_price':final_price})
+    else:
+        return redirect('login')
+    
+
+def add_to_quantity(request, id):
+    if request.user.is_authenticated:
+        product = get_object_or_404(Cart, pk=id)
+        product.quantity += 1
+        product.save()
+        return redirect('viewCart')
+    else:
+        return redirect('login')
+    
+
+def delete_to_quantity(request, id):
+    if request.user.is_authenticated:
+        product = get_object_or_404(Cart, pk=id)
+        if product.quantity>1:
+            product.quantity -= 1
+            product.save()
+            return redirect('viewCart')
+    else:
+        return redirect('login')
+    
+
+def delete_the_Cart(request,id):
+     if request.user.is_authenticated:
+         delect_cart= Cart.objects.get(pk=id)
+         delect_cart.delete()
+         return redirect('viewCart')
+     else:
+         return redirect('login')
+         
+
 
 
 

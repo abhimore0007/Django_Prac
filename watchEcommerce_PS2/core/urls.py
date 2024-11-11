@@ -12,7 +12,13 @@ urlpatterns = [
     path('ChangePassword/',views.User_Change_Password, name="changePassword"),
     path('Forgot_Password/',views.User_Password_forgot_Form, name="ForgotPassword"),
     path('categories/',views.User_categories, name="categories"),
-    path('watch_details/',views.watch_details, name="watchdetails"),
+    path('watch_details/<int:id>',views.watch_details, name="watchdetails"),
+    path('Add_To_Cart/<int:id>',views.Add_To_Cart,name='AddToCart'),
+    path('view_To_Cart/',views.view_To_Cart,name='viewCart'),
+    path('add_to_quantity/<int:id>',views.add_to_quantity,name='addtoquantity'),
+    path('delete_to_quantity/<int:id>',views.delete_to_quantity,name='deletetoquantity'),
+    path('delete_the_Cart/<int:id>',views.delete_the_Cart,name='deletetheCart')
+    
    
 ]
 

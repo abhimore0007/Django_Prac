@@ -10,142 +10,153 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <style>
         body {
-            padding: 2rem 0;
-            background-color: #000000;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Centered Title */
-        .page-title {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 2rem;
-            color: #ffffff;
-        }
-
-        /* Card Styling */
-        .card {
-            border: none;
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-img {
+        /* Header Buttons */
+        .header-buttons {
+            position: fixed;
+            top: 20px;
             width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
         }
 
-        .card-body {
-            padding: 1.5rem;
-            background-color: #ffffff;
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
+        .header-buttons .btn {
+            display: flex;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 100px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            background-color: #1c1c1c;
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+            height: 500px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-bottom: 2px solid #444;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 15px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 100%;
+            flex-grow: 1;
         }
 
-        .card-title {
+        .product-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f39c12;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .product-description {
+            font-size: 1rem;
+            color: #ddd;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
             font-size: 1.2rem;
+            color: #f39c12;
             font-weight: bold;
-            margin-bottom: 0.5rem;
         }
 
-        /* Description Styling with Truncation */
-        .card-text {
-            min-height: 60px;
-            max-height: 60px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            color: #6c757d;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
+        .button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #f39c12;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-        /* Price Styling */
-        .price h5 {
-            font-weight: bold;
-            color: #1f1d4e;
-        }
-
-        .home-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        /* Filter Button at Top Left */
-        .filter-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-        }
-
-        /* Remove blue color and underline from <a> tags */
-        .card-link {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .card-link:hover {
-            text-decoration: none;
+        .button:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
         }
     </style>
 </head>
 
 <body>
-    <!-- Home Button (Top Right Corner) -->
-    <a href="/" class="btn btn-primary home-btn">
-        <i class="bi bi-house-door"></i> Home
-    </a>
+    <!-- Header Buttons -->
+    <div class="header-buttons">
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">
+            <i class="bi bi-funnel-fill"></i> Filters
+        </button>
+        <a href="/" class="btn btn-primary">
+            <i class="bi bi-house-door"></i> Home
+        </a>
+    </div>
 
-    <!-- Filter Button (Top Left Corner) -->
-    <button class="btn btn-secondary filter-btn" data-bs-toggle="modal" data-bs-target="#filterModal">
-        <i class="bi bi-funnel-fill"></i> Filters
-    </button>
-
+    <!-- Page Title -->
     <div class="container">
         <h1 class="page-title">Product Showcase</h1>
     </div>
 
     <!-- Product Cards -->
-    <div class="container">
-        <div class="row justify-content-center">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Product Card 1 -->
+            <!-- Product Card 1 -->
             {% for watch in watch_cate %}
-            <div class="col-12 col-sm-8 col-md-6 col-lg-4 mb-4">
-                <!-- Wrap the card in an anchor tag to make it clickable -->
-                <a href="{% url "watchdetails" %}" class="card-link">
-                    <div class="card">
-                        <img class="card-img" src="{{watch.Watch_image.url}}" alt="{{watch.name}}">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">{{watch.name}}</h4>
-                            <p class="card-text">
-                                {{watch.small_description}}
-                            </p>
-                            <div class="buy d-flex justify-content-center align-items-center">
-                                <div class="price">
-                                    <h5>&#8377;{{watch.discounted_price}}</h5>
-                                </div>
+             <div class="col-lg-3 col-md-4 col-sm-6">
+                 <a href="{% url "watchdetails" watch.id %}" class="text-decoration-none"> <!-- Link to Product 1 detail page -->
+                     <div class="product-card">
+                         <div class="product-image">
+                             <img src="{{watch.Watch_image.url}}" alt="Product 1">
                             </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+                            <div class="product-info">
+                                <div class="product-name">{{watch.name}}</div>
+                                <div class="product-description">{{watch.small_description}}</div>
+                                <div class="product-price">&#8377; {{watch.discounted_price}}</div>
+                            </div>
+                     </div>
+                 </a>
+             </div>
             {% endfor %}
+
+
+
+<!-- Add similar anchor tags for the other product cards as well -->
+
         </div>
     </div>
 
@@ -179,7 +190,6 @@
 
     <!-- Scripts -->
     <script src="{% static 'core/js/bootstrap.bundle.js' %}"></script>
-    <script src="{% static 'core/js/popper.js' %}"></script>
 </body>
 
 </html>
