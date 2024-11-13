@@ -4,21 +4,21 @@ from django.contrib.auth.models import User
 
 
 class RegisterForm(UserCreationForm):
-    password1 = forms.CharField(label='Password',widget=forms.PasswordInput(attrs={'class':'form-control'}))
-    password2 = forms.CharField(label='Confirm Password',widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    password1 = forms.CharField(label='Password',widget=forms.PasswordInput(attrs={'class':'form-control','placeholder': 'Password'}))
+    password2 = forms.CharField(label='Confirm Password',widget=forms.PasswordInput(attrs={'class':'form-control','placeholder': 'Confirm Password'}))
     class Meta:
         model =User
         fields = ['username','first_name','last_name','email','password1','password2']
         labels ={'email':'Email'}
-        widgets= {'username':forms.TextInput(attrs={'class':'form-control'}),
-                  'email':forms.TextInput(attrs={'class':'form-control'}),
-                  'first_name':forms.TextInput(attrs={'class':'form-control'}),
-                  'last_name':forms.TextInput(attrs={'class':'form-control'}),
+        widgets= {'username':forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter Username'}),
+                  'email':forms.TextInput(attrs={'class':'form-control','placeholder': 'Email'}),
+                  'first_name':forms.TextInput(attrs={'class':'form-control','placeholder': 'First Name'}),
+                  'last_name':forms.TextInput(attrs={'class':'form-control','placeholder': 'Last Name'}),
                   }
 
 class loginForm(AuthenticationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-    password = forms.CharField(label='Password',widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder': 'Username'}))
+    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control','placeholder': 'Password'}))
 
 
 class UserEditForm(UserChangeForm):

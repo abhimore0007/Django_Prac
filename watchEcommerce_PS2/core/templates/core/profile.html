@@ -25,7 +25,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            position: relative; /* Ensure the absolute button aligns correctly */
+            position: relative;
         }
 
         .profile-header {
@@ -137,6 +137,27 @@
             background-color: #1976D2;
         }
 
+        /* Cart Icon on the left side */
+        .cart-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            background-color: #FF9800;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+            z-index: 1000;
+        }
+
+        .cart-icon:hover {
+            background-color: #E65100;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .profile-section {
@@ -157,10 +178,10 @@
 </head>
 
 <body>
+    <!-- Cart Icon -->
+
     <button class="top-right-button" onclick="window.location.href='{% url "base" %}'">HOME</button>
     <div class="profile-section">
-        <!-- Button in top-right corner -->
-
         <!-- Profile Header -->
         <div class="profile-header">
             <h1>Welcome {{ request.user.first_name }}</h1>

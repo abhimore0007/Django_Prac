@@ -9,142 +9,90 @@
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
     <style>
-        /* Global Styling */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7fa;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-
-        section{
-            height:809px;
-        }
-
-        /* Card Container */
-        .card {
-            border-radius: 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Form and Title */
-        .card-body {
-            padding: 2rem;
-        }
-
-        .text-center img {
-            margin-bottom: 1.5rem;
-        }
-
-        h2 {
-            font-weight: 600;
-            color: #555;
-        }
-
-        .fs-6 {
-            font-size: 1.2rem;
-        }
-
-        /* Button Styling */
-        .btn-primary {
-            background-color: #0069d9;
-            border-color: #0069d9;
-            padding: 0.75rem 1.25rem;
+        /* Additional Styling for Form Inputs */
+        .form-control {
+            border-radius: 0.5rem;
+            border: 1px solid #ced4da;
+            padding: 0.75rem;
             font-size: 1rem;
-            width: 100%;
-            border-radius: 8px;
+            background-color: #f9f9f9;
         }
 
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         }
 
-        /* Error Styling */
-        .form-group .error-message {
-            color: red;
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Link Styling */
-        .link-primary {
-            color: #0069d9;
-        }
-
-        .link-primary:hover {
-            color: #0056b3;
-            text-decoration: underline;
-        }
-
-        /* Responsive Layout */
-        @media (max-width: 768px) {
-            .card-body {
-                padding: 1.5rem;
-            }
-
-            .btn-primary {
-                padding: 0.75rem;
-            }
+        .error-message p {
+            color: #dc3545;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 
 <body>
-    <!-- Login Section -->
-    <section class="bg-dark py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
-                    <div class="card border-light-subtle rounded-3 shadow-sm">
-                        <div class="card-body p-3 p-md-4 p-xl-5">
-                            <div class="text-center mb-3 fs-2">
-                                Login Form
+    <section class="vh-100" style="background-color: rgb(0, 0, 0);">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-8">
+                    <div class="card" style="border-radius: 1rem; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-none d-md-block">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                                    alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
                             </div>
-                            <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Sign in to your account</h2>
-                            <form method="POST" action="{% url 'login' %}">
-                                {% csrf_token %}
-                                <!-- Display error messages -->
-                                {% if messages %}
-                                    <div class="alert alert-danger">
-                                        {% for message in messages %}
-                                            <p>{{ message }}</p>
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
-                                
-                                <!-- Form fields -->
-                                {% for log in log %}
-                                    <div class="form-group mb-3">
-                                        <label for="{{ log.id_for_label }}">{{ log.label }}</label>
-                                        {{ log }}
-                                        <!-- Display field errors -->
-                                        {% if log.errors %}
-                                            <div class="error-message">
-                                                {% for error in log.errors %}
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5 text-black">
+                                    <form action="" method="POST" novalidate>
+                                        <h2 class="fw-bold mb-4 text-center" style="color: #000000;">Login Form</h2>
+                                        {% csrf_token %}
+                                        
+                                        <!-- Non-field Errors -->
+                                        {% if log.non_field_errors %}
+                                            <div class="alert alert-danger">
+                                                {% for error in log.non_field_errors %}
                                                     <p>{{ error }}</p>
                                                 {% endfor %}
                                             </div>
                                         {% endif %}
-                                    </div>
-                                {% endfor %}
+                                        
+                                        <!-- Display Error Messages -->
+                                        {% if messages %}
+                                            <div class="alert alert-danger">
+                                                {% for message in messages %}
+                                                    <p>{{ message }}</p>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
 
-                                <!-- Forgot password link -->
-                                <div class="d-flex justify-content-between mb-3">
-                                    <a href="" class="link-primary text-decoration-none">Forgot password?</a>
-                                </div>
+                                        <!-- Form Fields -->
+                                        {% for field in log %}
+                                            <div class="form-group mb-3">
 
-                                <!-- Submit Button -->
-                                <div class="d-grid my-3">
-                                    <button class="btn btn-primary btn-lg" type="submit">Log in</button>
-                                </div>
+                                                {{ field }}
+                                                <div class="error-message">
+                                                    {% if field.errors %}
+                                                        {% for error in field.errors %}
+                                                            <p>{{ error }}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
 
-                                <!-- Sign up link -->
-                                <div class="text-center">
-                                    <p class="m-0 text-secondary">Don't have an account? <a href="{% url "register" %}" class="link-primary text-decoration-none">Sign up</a></p>
+                                        <!-- Submit Button -->
+                                        <div class="pt-1 mb-4 text-center">
+                                            <button class="btn btn-primary btn-lg btn-block w-100" type="submit">Login</button>
+                                        </div>
+
+                                        <!-- Additional Links -->
+                                        <div class="text-center">
+                                            <a class="small text-muted" href="#!">Forgot password?</a>
+                                            <p class="mt-3" style="color: #393f81;">Don't have an account? <a href="#!" style="color: #007bff;">Register here</a></p>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -154,5 +102,4 @@
 
     <script src="{% static 'core/js/bootstrap.bundle.min.js' %}"></script>
 </body>
-
 </html>

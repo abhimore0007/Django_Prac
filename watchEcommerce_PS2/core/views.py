@@ -24,17 +24,17 @@ def register(request):
 def user_login(request):
     if not request.user.is_authenticated:
         if request.method == 'POST':
-            log=loginForm(request,request.POST)
+            log = loginForm(request, request.POST)
             if log.is_valid():
-                Name=log.cleaned_data['username']
-                Password=log.cleaned_data['password']
-                user=authenticate(username=Name,password=Password)
+                Name = log.cleaned_data['username']
+                Password = log.cleaned_data['password']
+                user = authenticate(username=Name, password=Password)
                 if user is not None:
                     login(request, user)
                     return redirect('/')
         else:
-            log=loginForm()
-            return render(request,'core/login_form.html',{'log':log})
+            log = loginForm()
+        return render(request, 'core/login_form.html', {'log': log})
     else:
         return redirect('login')
 

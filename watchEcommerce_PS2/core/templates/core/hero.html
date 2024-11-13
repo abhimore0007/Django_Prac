@@ -29,7 +29,9 @@
         <div class="col-md-6">
             <h1 id="HeroTitle">A Watch For Every Journey,<br><span> Every Occasion</span></h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lacinia odio vitae vestibulum.</p>
-            <button class="btn btn-outline-warning">Shop Now</button>
+            <a href="{% url "categories" %}">
+              <button class="btn btn-outline-warning">Shop Now</button>
+            </a>
         </div>
         <div class="col-md-6 first-hero-img">
             <img src="{% static "core/imgs/43-Greubel_Forsey_Brands.jpg" %}" alt="Description" class="img-fluid">
