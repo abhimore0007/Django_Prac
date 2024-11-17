@@ -1,223 +1,263 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Section</title>
-    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: black;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Profile Page</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      background-color: #121212;
+      color: #ffffff;
+    }
 
-        .profile-section {
-            width: 100%;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            position: relative;
-        }
+    /* Sidebar styling */
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: #1e1e1e;
+      padding: 20px;
+      box-sizing: border-box;
+      position: fixed;
+    }
 
-        .profile-header {
-            margin-bottom: 20px;
-        }
+    .sidebar h2 {
+      font-size: 20px;
+      color: #ffffff;
+      margin: 0 0 20px;
+    }
 
-        .profile-header h1 {
-            margin: 0;
-            font-size: 2em;
-            color: #333;
-        }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
 
-        .profile-img-container {
-            margin-bottom: 20px;
-        }
+    .sidebar ul li {
+      margin: 15px 0;
+    }
 
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ddd;
-        }
+    .sidebar ul li a {
+      text-decoration: none;
+      font-size: 16px;
+      color: #a9a9a9;
+      cursor: pointer;
+      display: block;
+      transition: all 0.3s ease;
+    }
 
-        .profile-info {
-            margin-bottom: 20px;
-            font-size: 1.2em;
-            color: #333;
-        }
+    .sidebar ul li a:hover {
+      color: #ffffff;
+      transform: translateX(5px);
+    }
 
-        .profile-info p {
-            margin: 5px 0;
-        }
+    .sidebar footer {
+      font-size: 14px;
+      color: #a9a9a9;
+      text-align: center;
+      margin-top: 20px;
+    }
 
-        form {
-            display: flex;
-            flex-direction: column;
-        }
+    /* Main content area */
+    .main-content {
+      margin-left: 250px; /* Make space for the sidebar */
+      flex-grow: 1;
+      padding: 20px;
+      background-color: #121212;
+    }
 
-        label {
-            margin: 10px 0 5px;
-            font-weight: bold;
-        }
+    /* Hide all content sections by default */
+    .content-section {
+      display: none;
+    }
 
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        textarea {
-            padding: 10px;
-            font-size: 1em;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
+    /* Show the targeted section */
+    .content-section:target {
+      display: block;
+    }
 
-        .button-group {
-            display: flex;
-            justify-content: space-between;
-        }
+    .profile-section {
+      text-align: center;
+      margin: 50px 0;
+    }
 
-        .button-group button {
-            padding: 12px;
-            font-size: 1.1em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 48%;
-        }
+    .profile-section img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #3498db;
+      margin-bottom: 15px;
+    }
 
-        .save-button {
-            background-color: #4CAF50;
-            color: white;
-        }
+    .profile-section h1 {
+      font-size: 28px;
+      color: #ffffff;
+      margin: 10px 0;
+    }
 
-        .save-button:hover {
-            background-color: #45a049;
-        }
+    .profile-section p {
+      font-size: 16px;
+      color: #a9a9a9;
+      margin: 5px 0;
+    }
 
-        .cancel-button {
-            background-color: #f44336;
-            color: white;
-        }
+    /* Top bar styling */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      background-color: #1e1e1e;
+      height: 60px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 0 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
 
-        .cancel-button:hover {
-            background-color: #e53935;
-        }
+    .top-bar .icon {
+      margin-left: 15px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
 
-        #change_btn {
-            text-decoration: none;
-            color: white;
-        }
+    .top-bar .icon span {
+      margin-left: 5px;
+      font-size: 14px;
+      color: #a9a9a9;
+    }
 
-        /* Button in the top-right corner */
-        .top-right-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #2196F3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    .top-bar .icon i {
+      font-size: 18px;
+      color: #a9a9a9;
+    }
 
-        .top-right-button:hover {
-            background-color: #1976D2;
-        }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
 
-        /* Cart Icon on the left side */
-        .cart-icon {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            padding: 10px 15px;
-            background-color: #FF9800;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 1.5em;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s ease;
-            z-index: 1000;
-        }
+    /* Individual card */
+    .card {
+      background-color: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .cart-icon:hover {
-            background-color: #E65100;
-        }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .profile-section {
-                padding: 20px;
-                max-width: 90%;
-            }
+    .card i {
+      font-size: 36px;
+      color: #3498db;
+      margin-bottom: 15px;
+    }
 
-            .button-group {
-                flex-direction: column;
-                gap: 15px;
-            }
+    .card h3 {
+      font-size: 20px;
+      color: #ffffff;
+      margin: 10px 0;
+    }
 
-            .button-group button {
-                width: 100%;
-            }
-        }
-    </style>
+    .card p {
+      font-size: 14px;
+      color: #a9a9a9;
+      margin: 0;
+    }
+  </style>
 </head>
-
 <body>
-    <!-- Cart Icon -->
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>DashBoard</h2>
+    <ul>
+      <li><a href="#dashboard">Profile</a></li>
+      <li><a href="#account-settings">My Orders</a></li>
+      <li><a href="#view_cart">View Cart</a></li>
+      <li><a href="#order-history">Wishlist</a></li>
+      <li><a href="#Change_Password">Change Password</a></li>
+      <li><a href="#address_change">Address Book</a></li>
+    </ul>
+  </div>
 
-    <button class="top-right-button" onclick="window.location.href='{% url "base" %}'">HOME</button>
-    <div class="profile-section">
-        <!-- Profile Header -->
-        <div class="profile-header">
-            <h1>Welcome {{ request.user.first_name }}</h1>
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Content Sections -->
+    <div id="dashboard" class="content-section">
+      <div class="profile-section">
+        <img src="https://via.placeholder.com/120" alt="Profile Picture">
+        <h1>John Doe</h1>
+        <p>Email: john.doe@example.com</p>
+      </div>
+
+      <!-- Card Grid -->
+      <div class="card-grid">
+        <div class="card">
+          <a href=" ">
+            <i class="bi bi-box-seam"></i>
+            <h3>Orders</h3>
+            <p>View your past and current orders</p>
+          </a>
         </div>
-
-        <!-- Profile Image -->
-        <div class="profile-img-container">
-            <img src="{% static 'core/imgs/persone_icon.jpg' %}" alt="Default Profile Image" class="profile-img">
+        <div class="card">
+          <a href=" ">
+            <i class="bi bi-heart"></i>
+            <h3>Wishlist</h3>
+            <p>Check recent updates and alerts</p>
+          </a>
         </div>
-
-        <!-- Profile Information -->
-        <div class="profile-info">
-            <p><strong>Name:</strong> {{ request.user.first_name }} {{ request.user.last_name }}</p>
-            <p><strong>Email:</strong> {{ request.user.email }}</p>
+        <div class="card">
+          <a href="#address_change">
+            <i class="bi bi-geo-alt-fill"></i>
+            <h3>Address</h3>
+            <p>Manage your saved locations</p>
+          </a>
         </div>
-
-        <!-- Profile Form -->
-        <form action="#" method="POST">
-            {% csrf_token %}
-            {% for U in UC %}
-                <div class="form-group">
-                    <label for="{{ U.id_for_label }}">{{ U.label }}</label>
-                    {{ U }}
-                    <div class="text-danger">{{ U.errors|striptags }}</div>
-                </div>
-            {% endfor %}
-
-            <!-- Buttons Group -->
-            <div class="button-group">
-                <button type="submit" class="save-button">Save</button>
-                <button type="submit" class="btn btn-warning" href="">
-                    <a href="{% url "changePassword" %}" id="change_btn">Change Password</a>
-                </button>
-            </div>
-        </form>
+        <div class="card">
+          <a href=" ">
+            <i class="bi bi-headset"></i>
+            <h3>Support</h3>
+            <p>Contact our support team</p>
+          </a>
+        </div>
+      </div>
     </div>
-</body>
 
+    <div id="account-settings" class="content-section">
+      <h1>Account Settings</h1>
+      <p>Manage your account details here.</p>
+    </div>
+
+    <div id="order-history" class="content-section">
+      <h1>Order History</h1>
+      <p>View your past orders here.</p>
+    </div>
+
+    <div id="Change_Password" class="content-section">
+      <h1>Help & Support</h1>
+      <p>Contact our support team for assistance.</p>
+    </div>
+
+    <div id="view_cart" class="content-section">
+      <h1>View Cart</h1>
+      <p>Check items in your cart.</p>
+    </div>
+
+    
+    <div id="address_change" class="content-section">
+      
+    </div>
+  </div>
+</body>
 </html>

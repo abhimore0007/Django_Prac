@@ -1,147 +1,124 @@
 {% load static %}
-<!-- Remove the container if you want to extend the Footer to full width. -->
+<style>
+    /* Footer background and text styling */
+    footer {
+        background-color: black; /* Black background for footer */
+        color: white; /* White text for contrast */
+        padding-top: 20px;
+    }
+
+    /* Section headings */
+    footer h6 {
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+
+    /* Paragraph and links styling */
+    footer p, footer a {
+        color: #dcdcdc; /* Light gray for text */
+        font-size: 0.9rem;
+        text-decoration: none;
+    }
+
+    footer a:hover {
+        color: #f4c10f; /* Gold color on hover for links */
+    }
+
+    /* Social media buttons styling */
+    .btn-floating {
+        background-color: #f4c10f; /* Gold buttons */
+        color: black;
+        border: none;
+    }
+
+    .btn-floating:hover {
+        background-color: white; /* White on hover */
+        color: black;
+    }
+
+    /* Horizontal divider styling */
+    hr {
+        border-top: 1px solid #444; /* Subtle divider */
+        margin: 20px 0;
+    }
+
+    /* Responsiveness */
+    @media (max-width: 768px) {
+        footer h6 {
+            font-size: 1rem;
+        }
+        footer p {
+            font-size: 0.8rem;
+        }
+    }
+</style>
+
 <div class="container-fluid">
     <!-- Footer -->
-    <footer
-            class="text-center text-lg-start text-white"
-            style="background-color: #45526e"
-            >
-      <!-- Grid container -->
-      <div class="container-fluid">
-        <!-- Section: Links -->
-        <section class="">
-          <!--Grid row-->
-          <div class="row">
-            <!-- Grid column -->
-            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-              <h6 class="text-uppercase mb-4 font-weight-bold">
-                Company name
-              </h6>
-              <p>
-                Here you can use rows and columns to organize your footer
-                content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                elit.
-              </p>
-            </div>
-            <!-- Grid column -->
-  
-            <hr class="w-100 clearfix d-md-none" />
-  
-            <!-- Grid column -->
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-              <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
-              <p>
-                <a class="text-white">MDBootstrap</a>
-              </p>
-              <p>
-                <a class="text-white">MDWordPress</a>
-              </p>
-              <p>
-                <a class="text-white">BrandFlow</a>
-              </p>
-              <p>
-                <a class="text-white">Bootstrap Angular</a>
-              </p>
-            </div>
-            <!-- Grid column -->
-  
-            <hr class="w-100 clearfix d-md-none" />
-  
-            <!-- Grid column -->
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-              <h6 class="text-uppercase mb-4 font-weight-bold">
-                Useful links
-              </h6>
-              <p>
-                <a class="text-white">Your Account</a>
-              </p>
-              <p>
-                <a class="text-white">Become an Affiliate</a>
-              </p>
-              <p>
-                <a class="text-white">Shipping Rates</a>
-              </p>
-              <p>
-                <a class="text-white">Help</a>
-              </p>
-            </div>
-  
-            <!-- Grid column -->
-            <hr class="w-100 clearfix d-md-none" />
-  
-            <!-- Grid column -->
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-              <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
-              <p><i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
-              <p><i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
-              <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-              <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
-            </div>
-            <!-- Grid column -->
-          </div>
-          <!--Grid row-->
-        </section>
-        <!-- Section: Links -->
-  
-        <hr class="my-3">
-  
-        <!-- Section: Copyright -->
-        <section class="p-3 pt-0">
-          <div class="row d-flex align-items-center">
-            <!-- Grid column -->
-            <div class="col-md-7 col-lg-8 text-center text-md-start">
-              <!-- Copyright -->
-              <div class="p-3">
-                © 2020 Copyright:
-                <a class="text-white" href="https://mdbootstrap.com/"
-                   >MDBootstrap.com</a
-                  >
-              </div>
-              <!-- Copyright -->
-            </div>
-            <!-- Grid column -->
-  
-            <!-- Grid column -->
-            <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
-              <!-- Facebook -->
-              <a
-                 class="btn btn-outline-light btn-floating m-1"
-                 class="text-white"
-                 role="button"
-                 ><i class="fab fa-facebook-f"></i
-                ></a>
-  
-              <!-- Twitter -->
-              <a
-                 class="btn btn-outline-light btn-floating m-1"
-                 class="text-white"
-                 role="button"
-                 ><i class="fab fa-twitter"></i
-                ></a>
-  
-              <!-- Google -->
-              <a
-                 class="btn btn-outline-light btn-floating m-1"
-                 class="text-white"
-                 role="button"
-                 ><i class="fab fa-google"></i
-                ></a>
-  
-              <!-- Instagram -->
-              <a
-                 class="btn btn-outline-light btn-floating m-1"
-                 class="text-white"
-                 role="button"
-                 ><i class="fab fa-instagram"></i
-                ></a>
-            </div>
-            <!-- Grid column -->
-          </div>
-        </section>
-        <!-- Section: Copyright -->
-      </div>
-      <!-- Grid container -->
+    <footer class="text-center text-lg-start">
+        <div class="container-fluid">
+            <!-- Section: Links -->
+            <section>
+                <div class="row">
+                    <!-- Company Info -->
+                    <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h6>Company Name</h6>
+                        <p>
+                            Discover the latest trends and timeless designs in our collection.
+                            High-quality craftsmanship and elegance for every occasion.
+                        </p>
+                    </div>
+
+                    <!-- Products -->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h6>Products</h6>
+                        <p><a href="#">MDBootstrap</a></p>
+                        <p><a href="#">MDWordPress</a></p>
+                        <p><a href="#">BrandFlow</a></p>
+                        <p><a href="#">Bootstrap Angular</a></p>
+                    </div>
+
+                    <!-- Useful Links -->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h6>Useful Links</h6>
+                        <p><a href="#">Your Account</a></p>
+                        <p><a href="#">Become an Affiliate</a></p>
+                        <p><a href="#">Shipping Rates</a></p>
+                        <p><a href="#">Help</a></p>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h6>Contact</h6>
+                        <p><i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+                        <p><i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
+                        <p><i class="fas fa-phone mr-3"></i> +01 234 567 88</p>
+                        <p><i class="fas fa-print mr-3"></i> +01 234 567 89</p>
+                    </div>
+                </div>
+            </section>
+
+            <hr>
+
+            <!-- Social Media and Copyright -->
+            <section class="p-3">
+                <div class="row d-flex align-items-center">
+                    <!-- Copyright -->
+                    <div class="col-md-7 col-lg-8 text-center text-md-start">
+                        <p class="mb-0">© 2024 Copyright: <a href="#" class="text-white">YourCompany.com</a></p>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="col-md-5 col-lg-4 text-center text-md-end">
+                        <a class="btn btn-floating m-1" role="button"><i class="bi bi-facebook"></i></a>
+                        <a class="btn btn-floating m-1" role="button"><i class="bi bi-twitter"></i></a>
+                        <a class="btn btn-floating m-1" role="button"><i class="bi bi-google"></i></a>
+                        <a class="btn btn-floating m-1" role="button"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+            </section>
+        </div>
     </footer>
-    <!-- Footer -->
-  </div>
-  <!-- End of .container -->
+</div>

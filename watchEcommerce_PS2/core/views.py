@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate,login,logout,update_session_auth_ha
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import SetPasswordForm
-from .models import Watch,Cart
+from .models import Watch,Cart,Customer_Detail
 # Create your views here.
 
 def base(request):
@@ -156,6 +156,7 @@ def delete_the_Cart(request,id):
      else:
          return redirect('login')
          
+
 
 
 
