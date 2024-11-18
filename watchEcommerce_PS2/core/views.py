@@ -91,7 +91,7 @@ def User_Password_forgot_Form(request):
                 return redirect('Profile')
         else:
             Forgot_Pass=SetPasswordForm(user=request.user)
-        return render(request,'core/Forgot_Password_Form.html',{'Forgot_Pass':Forgot_Pass})
+        return render(request,'core/forgot_Password_Form.html',{'Forgot_Pass':Forgot_Pass})
     else:
         return redirect('Login')
     
@@ -155,6 +155,14 @@ def delete_the_Cart(request,id):
          return redirect('viewCart')
      else:
          return redirect('login')
+     
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+def AddressPage(request):
+    return render(request,'core/addresspage.html')
+
+def Address_Add(request):
+    return render(request,'core/Address_Add.html')
          
 
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Profile Page</title>
+  <title>Profile Page</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <style>
     body {
@@ -27,13 +27,12 @@
     .sidebar h2 {
       font-size: 20px;
       color: #ffffff;
-      margin: 0 0 20px;
+      margin-bottom: 20px;
     }
 
     .sidebar ul {
       list-style: none;
       padding: 0;
-      margin: 0;
     }
 
     .sidebar ul li {
@@ -44,29 +43,21 @@
       text-decoration: none;
       font-size: 16px;
       color: #a9a9a9;
-      cursor: pointer;
       display: block;
-      transition: all 0.3s ease;
+      transition: color 0.3s ease;
     }
 
-    .sidebar ul li a:hover {
+    .sidebar ul li a:hover,
+    .sidebar ul li a:target {
       color: #ffffff;
-      transform: translateX(5px);
-    }
-
-    .sidebar footer {
-      font-size: 14px;
-      color: #a9a9a9;
-      text-align: center;
-      margin-top: 20px;
+      font-weight: bold;
     }
 
     /* Main content area */
     .main-content {
-      margin-left: 250px; /* Make space for the sidebar */
-      flex-grow: 1;
+      margin-left: 250px;
       padding: 20px;
-      background-color: #121212;
+      flex-grow: 1;
     }
 
     /* Hide all content sections by default */
@@ -79,60 +70,9 @@
       display: block;
     }
 
-    .profile-section {
-      text-align: center;
-      margin: 50px 0;
-    }
-
-    .profile-section img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 3px solid #3498db;
-      margin-bottom: 15px;
-    }
-
-    .profile-section h1 {
-      font-size: 28px;
-      color: #ffffff;
-      margin: 10px 0;
-    }
-
-    .profile-section p {
-      font-size: 16px;
-      color: #a9a9a9;
-      margin: 5px 0;
-    }
-
-    /* Top bar styling */
-    .top-bar {
-      position: sticky;
-      top: 0;
-      background-color: #1e1e1e;
-      height: 60px;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      padding: 0 20px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    }
-
-    .top-bar .icon {
-      margin-left: 15px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .top-bar .icon span {
-      margin-left: 5px;
-      font-size: 14px;
-      color: #a9a9a9;
-    }
-
-    .top-bar .icon i {
-      font-size: 18px;
-      color: #a9a9a9;
+    /* Show the Profile section by default if no other section is targeted */
+    body:not(:has(:target)) #profile {
+      display: block;
     }
 
     .card-grid {
@@ -175,57 +115,203 @@
       color: #a9a9a9;
       margin: 0;
     }
+
+    .profile-section {
+      text-align: center;
+      margin: 50px 0;
+    }
+
+    .profile-section img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #3498db;
+      margin-bottom: 15px;
+    }
+
+    .profile-section h1 {
+      font-size: 28px;
+      color: #ffffff;
+      margin: 10px 0;
+    }
+
+    .profile-section p {
+      font-size: 16px;
+      color: #a9a9a9;
+      margin: 5px 0;
+    }
+
+    /* Form Styling */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .cp-label {
+      font-weight: 500;
+      font-size: 1rem;
+      text-align: left;
+      color: #555;
+    }
+
+    .cp-input,
+    .cp-textarea {
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s ease;
+      background-color: #fafafa;
+    }
+
+    .cp-input:focus,
+    .cp-textarea:focus {
+      border-color: #4CAF50;
+      outline: none;
+    }
+
+    .cp-error {
+      color: #f44336;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+
+    /* Button Styling */
+    .cp-button-group {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .cp-button {
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: auto;
+      text-align: center;
+    }
+
+    .cp-save-button {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .cp-save-button:hover {
+      background-color: #45a049;
+    }
+
+    .cp-cancel-button {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .cp-cancel-button:hover {
+      background-color: #e53935;
+    }
+
+    /* Home Button */
+    .cp-top-right-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .cp-top-right-button:hover {
+      background-color: #1976D2;
+    }
+
+    /* Forgot Password Link */
+    .cp-forgot-password {
+      margin-top: 20px;
+    }
+
+    .cp-forgot-password a {
+      color: #2196F3;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    .cp-forgot-password a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .cp-profile-section {
+        padding: 20px;
+        max-width: 90%;
+      }
+
+      .cp-button-group {
+        flex-direction: column;
+      }
+
+      .cp-button {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+    }
   </style>
 </head>
 <body>
   <!-- Sidebar -->
   <div class="sidebar">
-    <h2>DashBoard</h2>
+    <h2>Dashboard</h2>
     <ul>
-      <li><a href="#dashboard">Profile</a></li>
-      <li><a href="#account-settings">My Orders</a></li>
-      <li><a href="#view_cart">View Cart</a></li>
-      <li><a href="#order-history">Wishlist</a></li>
-      <li><a href="#Change_Password">Change Password</a></li>
-      <li><a href="#address_change">Address Book</a></li>
+      <li><a href="{% url "Profile" %}" class="active">Profile</a></li>
+      <li><a href="#my-orders">My Orders</a></li>
+      <li><a href="#wishlist">Wishlist</a></li>
+      <li><a href="{% url "changePassword" %}">Change Password</a></li>
+      <li><a href="{% url "AddressPage" %}">Address Book</a></li>
     </ul>
   </div>
 
   <!-- Main Content -->
   <div class="main-content">
-    <!-- Content Sections -->
-    <div id="dashboard" class="content-section">
+    <div id="profile" class="content-section">
       <div class="profile-section">
         <img src="https://via.placeholder.com/120" alt="Profile Picture">
-        <h1>John Doe</h1>
+        <h1>{{request.user}}</h1>
         <p>Email: john.doe@example.com</p>
       </div>
-
+  
       <!-- Card Grid -->
       <div class="card-grid">
         <div class="card">
-          <a href=" ">
+          <a href="">
             <i class="bi bi-box-seam"></i>
             <h3>Orders</h3>
             <p>View your past and current orders</p>
           </a>
         </div>
         <div class="card">
-          <a href=" ">
+          <a href="">  
             <i class="bi bi-heart"></i>
             <h3>Wishlist</h3>
             <p>Check recent updates and alerts</p>
           </a>
         </div>
         <div class="card">
-          <a href="#address_change">
+          <a href="">
             <i class="bi bi-geo-alt-fill"></i>
             <h3>Address</h3>
             <p>Manage your saved locations</p>
           </a>
         </div>
         <div class="card">
-          <a href=" ">
+          <a href="">
             <i class="bi bi-headset"></i>
             <h3>Support</h3>
             <p>Contact our support team</p>
@@ -234,30 +320,46 @@
       </div>
     </div>
 
-    <div id="account-settings" class="content-section">
-      <h1>Account Settings</h1>
-      <p>Manage your account details here.</p>
+    <div id="my-orders" class="content-section">
+      <h1>My Orders</h1>
+      <p>View and manage your orders here.</p>
     </div>
-
-    <div id="order-history" class="content-section">
-      <h1>Order History</h1>
-      <p>View your past orders here.</p>
-    </div>
-
-    <div id="Change_Password" class="content-section">
-      <h1>Help & Support</h1>
-      <p>Contact our support team for assistance.</p>
-    </div>
-
-    <div id="view_cart" class="content-section">
+    <div id="view-cart" class="content-section">
       <h1>View Cart</h1>
-      <p>Check items in your cart.</p>
+      <p>See the items in your shopping cart.</p>
     </div>
-
-    
-    <div id="address_change" class="content-section">
-      
+    <div id="wishlist" class="content-section">
+      <h1>Wishlist</h1>
+      <p>Manage your wishlist items.</p>
+    </div>
+    <div id="change-password" class="content-section">
+      <h1>Change Password</h1>
+      <form>
+          {% csrf_token %}
+              
+          {% for p in CP %}
+              <div class="form-group">
+                  <label for="{{ p.id_for_label }}">{{ p.label_tag }}</label>
+                  {{ p }}
+                  {% if p.errors %}
+                      <div class="error">
+                          {{ p.errors|striptags }}
+                      </div>
+                  {% endif %}
+              </div>
+          {% endfor %}
+          
+          <div class="button-group">
+              <button type="submit" class="save-button">Save Changes</button>
+          </div>
+      </form>
+    </div>
+    <div id="address-book" class="content-section">
+      <h1>Address Book</h1>
+      <p>Manage your saved addresses here.</p>
     </div>
   </div>
+  
+  <button class="cp-top-right-button">Home</button>
 </body>
 </html>
