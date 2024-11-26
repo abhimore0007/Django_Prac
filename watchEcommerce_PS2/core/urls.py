@@ -19,7 +19,13 @@ urlpatterns = [
     path('delete_to_quantity/<int:id>',views.delete_to_quantity,name='deletetoquantity'),
     path('delete_the_Cart/<int:id>',views.delete_the_Cart,name='deletetheCart'),
     path('AddressPage',views.AddressPage,name='AddressPage'),
-    path('Address_Add',views.Address_Add,name='Address_Add')
+    path('Address_Add',views.Address_Add,name='Address_Add'),
+    path('delete_Add/<int:id>',views.delete_Add,name='delete_Add'),
+    path('Profile_edit',views.Profile_edit,name='Profile_edit'),
+    path('Check_Out',views.Check_Out,name='Check_Out'),
+    path('Payment',views.Payment,name='Payment'),
+    path('payment_success/',views.payment_success,name='paymentsuccess'),
+    path('payment_failed/',views.payment_failed,name='paymentfailed'),
     
    
 ]

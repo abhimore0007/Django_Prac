@@ -1,11 +1,18 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .forms import RegisterForm,loginForm,UserEditForm,AdminEditForm,PasswordChangeForm
+from .forms import RegisterForm,loginForm,UserEditForm,AdminEditForm,PasswordChangeForm,Customer_Form
 from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import SetPasswordForm
 from .models import Watch,Cart,Customer_Detail
 # Create your views here.
+
+#===============For Paypal =========================
+from paypal.standard.forms import PayPalPaymentsForm
+from django.conf import settings
+import uuid
+from django.urls import reverse
+#========================================================
 
 def base(request):
     return render(request,'core/index.html')  
@@ -44,24 +51,8 @@ def log_out(request):
 
 
 def User_Profile(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            if request.user.is_superuser == True:
-                UC=AdminEditForm(request.POST,instance=request.user)
-            else:
-                UC = UserEditForm(request.POST,instance=request.user)
-            if UC.is_valid():
-                    UC.save()
-                    messages.success(request,'Data edit Successfully')
-        else:
-            if request.user.is_superuser == True:
-                UC=AdminEditForm(request.POST,instance=request.user)
-                user=User.objects.all()
-            else:
-                UC=UserEditForm(instance=request.user)
-        return render(request,'core/profile.html',{'UC':UC})
-    else:
-        return redirect('login')
+    return render(request,'core/profile.html')
+    
     
 
 def User_Change_Password(request):
@@ -130,11 +121,15 @@ def view_To_Cart(request):
 def add_to_quantity(request, id):
     if request.user.is_authenticated:
         product = get_object_or_404(Cart, pk=id)
-        product.quantity += 1
-        product.save()
+        if product.quantity < 4:
+            product.quantity += 1
+            product.save()
+        else:
+            messages.error(request, "You cannot add more than 4 units of this product.")
         return redirect('viewCart')
     else:
         return redirect('login')
+
     
 
 def delete_to_quantity(request, id):
@@ -159,14 +154,106 @@ def delete_the_Cart(request,id):
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 def AddressPage(request):
-    return render(request,'core/addresspage.html')
+    if request.user.is_authenticated:
+        address = Customer_Detail.objects.filter(user=request.user)
+        return render(request,'core/addresspage.html',{'address':address})
+    else:
+        return redirect('login')
 
 def Address_Add(request):
-    return render(request,'core/Address_Add.html')
+    if request.method == 'POST':
+        add=Customer_Form(request.POST)
+        if add.is_valid():
+            user=request.user                # user variable store the current user i.e steveroger
+            name= add.cleaned_data['name']
+            address= add.cleaned_data['address']
+            city= add.cleaned_data['city']
+            state= add.cleaned_data['state']
+            pincode= add.cleaned_data['pincode'] 
+            Customer_Detail(user=user,name=name,address=address,city=city,state=state,pincode=pincode).save()
+            return redirect('AddressPage')
+    else:
+        add =Customer_Form()
+        address = Customer_Detail.objects.filter(user=request.user)
+    return render(request,'core/Address_Add.html',{'add':add})
+
+def Profile_edit(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            if request.user.is_superuser == True:
+                UC=AdminEditForm(request.POST,instance=request.user)
+            else:
+                UC = UserEditForm(request.POST,instance=request.user)
+            if UC.is_valid():
+                    UC.save()
+                    messages.success(request,'Data edit Successfully')
+        else:
+            if request.user.is_superuser == True:
+                UC=AdminEditForm(request.POST,instance=request.user)
+                user=User.objects.all()
+            else:
+                UC=UserEditForm(instance=request.user)
+        return render(request,'core/profile_Edit.html',{'UC':UC})
+    else:
+        return redirect('login')
+   
          
+def delete_Add(request,id):
+    if request.method == 'POST':
+        de = Customer_Detail.objects.get(pk=id)
+        de.delete()
+    return redirect('AddressPage')
 
 
+def Check_Out(request):
+    if request.user.is_authenticated:
+        watch_view=Cart.objects.filter(user=request.user)
+        total=0
+        delivery_charges=3000
+        for viewcart in watch_view:
+            total+=(viewcart.product.discounted_price*viewcart.quantity)
+        final_price =total+delivery_charges
+        address = Customer_Detail.objects.filter(user=request.user)
+        return render(request,'core/checkout.html',{'total':total,'final_price':final_price,'address':address})
+    else:
+        return redirect('login')
+    
 
+def Payment(request):
+
+    watch_view=Cart.objects.filter(user=request.user)
+    total=0
+    delivery_charges=3000
+    for viewcart in watch_view:
+        total+=(viewcart.product.discounted_price*viewcart.quantity)
+    final_price =total+delivery_charges
+
+     #================= Paypal Code =====================
+   
+    host = request.get_host()   # Will fecth the domain site is currently hosted on.
+   
+    paypal_checkout = {
+        'business': settings.PAYPAL_RECEIVER_EMAIL,   #This is typically the email address associated with the PayPal account that will receive the payment.
+        'amount': final_price,    #: The amount of money to be charged for the transaction. 
+        'item_name': 'Watch',       # Describes the item being purchased.
+        'invoice': uuid.uuid4(),  #A unique identifier for the invoice. It uses uuid.uuid4() to generate a random UUID.
+        'currency_code': 'USD',
+        'notify_url': f"http://{host}{reverse('paypal-ipn')}",         #The URL where PayPal will send Instant Payment Notifications (IPN) to notify the merchant about payment-related events
+        'return_url': f"http://{host}{reverse('paymentsuccess')}",     #The URL where the customer will be redirected after a successful payment. 
+        'cancel_url': f"http://{host}{reverse('paymentfailed')}",      #The URL where the customer will be redirected if they choose to cancel the payment. 
+    }
+
+    paypal_payment = PayPalPaymentsForm(initial=paypal_checkout)
+
+  #================= Paypal Code  End =====================
+    return render(request,'core/payment_page.html',{'paypal':paypal_payment})
+
+def payment_success(request):
+    return render(request,'core/payment_success.html')
+
+
+def payment_failed(request):
+    return render(request,'core/payment_failed.html')
 
 
     

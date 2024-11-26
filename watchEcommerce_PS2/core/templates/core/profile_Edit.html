@@ -275,6 +275,108 @@
       color: #45a049; /* Highlight color on hover */
       transform: scale(1.2); /* Slight zoom effect */
     }
+
+    /* Form Styling */
+.profile-form {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #1e1e1e;
+  padding: 20px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+  width: 95%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #121212;
+  color: #ffffff;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+.form-error {
+  color: #f44336;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.cp-save-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.cp-save-button:hover {
+  background-color: #45a049;
+}
+
+.cp-cancel-button {
+  background-color: #f44336;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+}
+
+.cp-cancel-button:hover {
+  background-color: #e53935;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-form {
+    padding: 15px;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -297,83 +399,26 @@
         <img src="https://via.placeholder.com/120" alt="Profile Picture">
         <h1>Name : {{request.user.first_name}}</h1>    
         <p>Email : {{request.user.email}}</p>  
-        <a href="{% url "Profile_edit" %}">
-          <i class="bi bi-pencil-square edit-icon"></i>
-        </a>
       </div>
-  
-      <!-- Card Grid -->
-      <div class="card-grid">
-        <div class="card">
-          <a href="">
-            <i class="bi bi-box-seam"></i>
-            <h3>Orders</h3>
-            <p>View your past and current orders</p>
-          </a>
-        </div>
-        <div class="card">
-          <a href="">  
-            <i class="bi bi-heart"></i>
-            <h3>Wishlist</h3>
-            <p>Check recent updates and alerts</p>
-          </a>
-        </div>
-        <a href="{% url "AddressPage" %}">
-        <div class="card">
-            <i class="bi bi-geo-alt-fill"></i>
-            <h3>Address</h3>
-            <p>Manage your saved locations</p>
+      <form action="" method="POST" class="profile-form">
+        {% csrf_token %}
+        {% for PE in UC %}
+          <div class="form-group">
+            <label class="form-label" for="{{ PE.id_for_label }}">{{ PE.label }}</label>
+            {{ PE }}
+            {% if PE.errors %}
+              <div class="form-error">{{ PE.errors }}</div>
+            {% endif %}
           </div>
-        </a>
-        <div class="card">
-          <a href="">
-            <i class="bi bi-headset"></i>
-            <h3>Support</h3>
-            <p>Contact our support team</p>
-          </a>
+        {% endfor %}
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-success cp-save-button">Save</button>
+          <a href="/" class="btn btn-secondary cp-cancel-button">Cancel</a>
         </div>
-      </div>
-    </div>
-
-    <div id="my-orders" class="content-section">
-      <h1>My Orders</h1>
-      <p>View and manage your orders here.</p>
-    </div>
-    <div id="view-cart" class="content-section">
-      <h1>View Cart</h1>
-      <p>See the items in your shopping cart.</p>
-    </div>
-    <div id="wishlist" class="content-section">
-      <h1>Wishlist</h1>
-      <p>Manage your wishlist items.</p>
-    </div>
-    <div id="change-password" class="content-section">
-      <h1>Change Password</h1>
-      <form>
-          {% csrf_token %}
-              
-          {% for p in CP %}
-              <div class="form-group">
-                  <label for="{{ p.id_for_label }}">{{ p.label_tag }}</label>
-                  {{ p }}
-                  {% if p.errors %}
-                      <div class="error">
-                          {{ p.errors|striptags }}
-                      </div>
-                  {% endif %}
-              </div>
-          {% endfor %}
-          
-          <div class="button-group">
-              <button type="submit" class="save-button">Save Changes</button>
-          </div>
       </form>
-    </div>
-    <div id="address-book" class="content-section">
-      <h1>Address Book</h1>
-      <p>Manage your saved addresses here.</p>
-    </div>
-  </div>
+     
+   
+      
   <a href="/"> <button class="cp-top-right-button">Home</button> </a>
 </body>
 </html>
