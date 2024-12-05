@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Feedback</title>
+    <style>
+        .stars {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+        }
+        .star {
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        input[type="radio"] {
+            display: none;
+        }
+        label {
+            color: gray;
+        }
+        input[type="radio"]:checked ~ label {
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rate Us</h1>
+    
+    {% if message %}
+        <p>{{ message }}</p>
+        <p>You rated: {{ rating }} stars.</p>
+    {% endif %}
+    
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="stars">
+            <!-- Generate 5 stars in reverse order -->
+            {% for i in reversed_range %}
+            <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}">
+            <label class="star" for="star{{ i }}">&#9733;</label>
+            {% endfor %}
+        </div>
+        <button type="submit">Submit Feedback</button>
+    </form>
+</body>
+</html>
